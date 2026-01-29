@@ -6,7 +6,7 @@ import { LoginFields } from "@/components/forms/fields/LoginFields";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/axios";
 import { useNotification } from "@/providers/NotificationsProvider";
-import { ApiResponse } from "@/lib/types/api.types";
+import { LoginResponse } from "@/lib/types/api.types";
 import { useState } from "react";
 
 type LoginFormValues = {
@@ -24,7 +24,7 @@ export default function LoginForm() {
     const { email, password } = values;
     setIsLoading(true);
     try {
-      const res = await api.post<ApiResponse>("/auth/login", {
+      const res = await api.post<LoginResponse>("/auth/login", {
         email,
         password,
       });
@@ -38,7 +38,7 @@ export default function LoginForm() {
       } else {
         notify(
           "success",
-          `Ciao ${res.data?.user?.username}`,
+          `Ciao ${res.data?.user.username}`,
           "Bentornato su GoldenView",
         );
         router.push("/dashboard");

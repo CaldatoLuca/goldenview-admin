@@ -5,8 +5,8 @@ export type ApiError = {
   status: number;
 };
 
-export type ApiResponse = {
+export type LoginResponse = {
   success: boolean;
   error?: ApiError;
-  user?: User;
+  user: User;
 };
