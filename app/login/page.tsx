@@ -1,38 +1,57 @@
 "use client";
 
-import { api } from "@/lib/axios";
+import { Button, Form } from "antd";
+import { BaseForm } from "@/components/forms/BaseForm";
+import { LoginFields } from "@/components/forms/fields/LoginFields";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { api } from "@/lib/axios";
+import { useNotification } from "@/providers/NotificationsProvider";
+import { ApiResponse } from "@/lib/types/api.types";
 
-export default function LoginPage() {
+type LoginFormValues = {
+  email: string;
+  password: string;
+};
+
+export default function LoginForm() {
+  const [form] = Form.useForm<LoginFormValues>();
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const notify = useNotification();
 
-  async function handleLogin() {
+  const onSubmit = async (values: LoginFormValues) => {
+    const { email, password } = values;
     try {
-      await api.post("/auth/login", { email, password });
+      const res = await api.post<ApiResponse>("/auth/login", {
+        email,
+        password,
+      });
+
+      console.log(res);
+
+      if (!res.data.success) {
+        notify(
+          "error",
+          "Errore",
+          res.data?.error?.message || "Errore generico",
+        );
+      }
+
+      notify("success", "Bravo!", "Login avvenuto con successo");
       router.push("/dashboard");
     } catch {
-      alert("Login fallito");
+      notify("error", "Errore", "Login non riuscito");
     }
-  }
+  };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-    </div>
+    <BaseForm form={form} onSubmit={onSubmit}>
+      <LoginFields />
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit" block>
+          Login
+        </Button>
+      </Form.Item>
+    </BaseForm>
   );
 }

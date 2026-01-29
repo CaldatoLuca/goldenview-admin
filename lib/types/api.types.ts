@@ -1,6 +1,9 @@
-import { User } from "./schemas.types";
+export type ApiError = {
+  message: string;
+  status: number;
+};
 
-export interface LoginResponse {
+export type ApiResponse = {
   success: boolean;
-  user: User;
-}
+  error?: ApiError;
+};
