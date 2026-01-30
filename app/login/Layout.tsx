@@ -1,4 +1,6 @@
 // LoginLayout.tsx
+"use client";
+
 import { Flex } from "antd";
 
 export default function LoginLayout({
@@ -7,10 +9,16 @@ export default function LoginLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="h-screen bg-gray-900">
-      <Flex justify="center" align="center" className="h-full">
+    <>
+      <div className="bg-neutral-900 h-screen w-screen fixed inset-0 z-0" />
+      <Flex
+        justify="center"
+        align="center"
+        className="h-screen relative z-10"
+        gap={24}
+      >
         {children}
       </Flex>
-    </main>
+    </>
   );
 }

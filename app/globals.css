@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+.ant-full-bg {
+  background: var(--ant-color-bg-base) !important;
+}
+
+[data-theme="dark"] .ant-full-bg {
+  background: var(--ant-color-bg-base) !important;
+}
