@@ -19,9 +19,9 @@ const getThemeConfig = (darkMode: boolean) => ({
     colorError: "#ff4d4f",
     colorInfo: "#1890ff",
 
-    colorBgBase: "#ffffff",
+    colorBgBase: "#f5e8d3",
     colorBgContainer: "#fafafa",
-    colorTextBase: "#000000",
+    colorTextBase: "#1a0f0b",
 
     ...(darkMode && {
       colorBgBase: "#1a0f0b",
