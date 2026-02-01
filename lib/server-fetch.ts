@@ -1,13 +1,5 @@
 import { cookies } from "next/headers";
-
-export class HttpError extends Error {
-  status: number;
-
-  constructor(status: number, message: string) {
-    super(message);
-    this.status = status;
-  }
-}
+import { redirect } from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -27,8 +19,12 @@ export async function serverFetch<T>(
     cache: "no-store",
   });
 
+  if (res.status == 401) {
+    redirect("/login");
+  }
+
   if (!res.ok) {
-    throw new HttpError(res.status, res.statusText);
+    redirect("/error");
   }
 
   return res.json();

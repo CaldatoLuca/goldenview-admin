@@ -1,12 +1,15 @@
 import { User } from "./schemas.types";
 
-export type ApiError = {
+export interface ApiResponse {
+  success: boolean;
+}
+
+export interface ApiError {
   message: string;
   status: number;
-};
+}
 
-export type LoginResponse = {
-  success: boolean;
+export interface LoginResponse extends ApiResponse {
   error?: ApiError;
   user: User;
-};
+}
