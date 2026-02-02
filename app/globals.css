@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .ant-full-bg {
   background: var(--ant-color-bg-base) !important;
